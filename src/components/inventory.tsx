@@ -124,21 +124,29 @@ const Inventory = () => {
             isGoggle={product.category === "goggle"} 
             isFeatured={featuredProductLabel && index < 4}
           >
-            {/*************************************************************************
-             * We're missing some code here to enable our new cart functionality! 
-             * Retrieve this code from "Failure Is An Option! - Add the Code", Step 1
-             *************************************************************************/}
-            <ReserveButton
-              setHandleModal={setHandleModal}
-              handleModal={handleModal}
-              handleClickTest={handleClickTest}
-              updateField={updateField}
-              formData={{ name, email }}
-              onButtonClick={onButtonClick}
-            />
-            {/*****************************************************************
-             * Make sure you replace the code above with your new cart code!
-             ******************************************************************/}
+            {
+              billing ? (
+                <AddToCartButton
+                  product={product}
+                  errorTesting={errorTesting}
+                  clickHandler={addToCartClickHandler}
+                />
+              ) : (
+                <ReserveButton
+                  setHandleModal={setHandleModal}
+                  handleModal={handleModal}
+                  handleClickTest={handleClickTest}
+                  updateField={updateField}
+                  formData={{ name, email }}
+                  onButtonClick={onButtonClick}
+                />
+              )
+            }
+            {
+              billing && (
+                <ErrorDialog errorState={errorState} setErrorState={setErrorState} />
+              )
+            }
           </ProductCard>
         ))}
       </div>
